@@ -1,0 +1,18 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  background-color: #C7D8C6;
+  color: #fff;
+  position: fixed;
+  height: 100%;
+}
+
+input,
+textarea {
+  font-size: 18px;
+}
+
+#root, .App {
+  height: 100%;
+}

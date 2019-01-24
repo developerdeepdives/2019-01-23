@@ -1,0 +1,37 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  position: absolute;
+  background-color: darkolivegreen;
+  color: #fff;
+  text-shadow: 0.1px 0.1px 1 #000,
+               0.1px -0.1px 1 #000,
+               -0.1px 0.1px 1 #000,
+               -0.1px -0.1px 1 #000;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: space-around;
+  min-width: 300px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navLink.active {
+  color: #bbb;
+}

@@ -1,0 +1,7 @@
+.Layout {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
