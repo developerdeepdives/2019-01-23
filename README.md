@@ -19,7 +19,7 @@ $ git merge [enter branch name here]
 
 #### Rebase
 
-Rebasing, on the other hand will take any local changes you plan on applying to master and add it to the pre-existing linear history of the repo.
+Rebasing, on the other hand, will take any local changes you plan on applying to the master and add it to the pre-existing linear history of the repo.
 
 ```
 $ git checkout [enter branch name here]
@@ -39,9 +39,9 @@ $ git merge [enter branch name here]
 
 ##### Caution
 
-You should never rebase commits that exist outside your repo where people may have based work on them.
+You should never rebase commits that exist outside your repo where people may have continued work on them.
 
-When you rebase code existing commits are abandoned, therefore if people are working on on those old commits locally, major issues occur when they merge with the master as well when you go to pull back locally updates.
+When you rebase code existing commits are abandoned, therefore if people are working on on those old commits locally, major issues occur when they merge with the master as well as when you go to pull updates.
 
 ### React Router
 
@@ -51,9 +51,9 @@ React Router is a routing library built on top of React js which is used to crea
 
 #### BrowserRouter
 
-This is a router that uses the HTML5 history API to keep your UI in sync with the URL. This is the component that needs to wrap everything that you want routing to be applied to in your app. Generally this is included in your App.js file in the root directory.
+This is a router that uses the HTML5 history API to keep your UI in sync with the URL. This is the component that needs to wrap everything that you want routing to be applied to in your app. This is typically included in your App.js file in the root directory.
 
-Commonly you will see this aliased as `Router`
+Commonly you will see this aliased as `Router`.
 
 ```
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -76,15 +76,15 @@ The Route component is probably the most commonly used one in React Router. It's
 </Router>
 ```
 
-Here we can discuss the inclusion of a few of the inline functions:
+Here we can discuss the inclusion of some inline functions:
 
 - path: Passed any valid URL path or array of paths that can be understood.
-- component: Self explanatory, we pass in the component that should be rendered when that route is invoked.
+- component: Self explanatory, we pass in the component that should be rendered when that route is matched.
 - exact: This is a boolean that will only match if the path matches the location.pathname exactly.
 
 #### Link
 
-Provides declarative, accessible navigation around your app. We do not use `a` tags when linking within our app because our routing will not coincide. We must use <Link> tags.
+Provides declarative and accessible navigation around your app. We do not use `a` tags when linking within our app because our routing will not coincide. We must use `<Link>` tags.
 
 ```
 import { Link } from 'react-router-dom'
@@ -98,9 +98,9 @@ We must include the `to` function, this duplicates what a `href` attribute would
 
 #### NavLink
 
-This is a special version of the <Link> tag that will add styling attributes to the rendered element when it matches the current URL.
+This is a special version of the `<Link>` tag that will add styling attributes to the rendered element when it matches the current URL.
 
-By default, it will pass the `.active` class styling, by default, to an item in your navbar. So if you want a nav item to be highlighted when a user is on the component associated with it then use <NavLink> instead.
+By default, it will pass the `.active` class styling to an item in your navbar. So if you want a nav item to be highlighted when a user is on the component associated with it then use `<NavLink>` instead.
 
 ```
 <NavLink to="/Home" >
