@@ -1,84 +1,121 @@
-## Recap 1/16/2019
+## Recap 1/23/2019
 
-### Prop Drilling
+### Git Rebase
+
+##### Resource
+
+[Git- Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ##### Definition
 
-Used to pass data from a component higher up in the component hierarchy to a child component further down.
-It allows developers to access state at different levels of the component hierarchy in smaller applications without the use of a state management tool [Redux](https://redux.js.org/) or [Context](https://reactjs.org/docs/context.html).
+In Git, there are 2 ways to integrate changes from one branch into another, `merge` and `rebase`.
 
-##### Example
+#### Merge
 
-Line 31 in our `Layout.js`, we initialize a new method `handleSelectPost`. This will manage altering the state of `selectedPost`. The method is passed down through multiple child components until reaching `Post.js` where it's added as an `onClick` event handler.
+Merge is the traditional and easier way to integrate branches. It performs a 3-way merge between the 2 latest branch snapshots and the most recent ancestor of the 2, creating a new snapshot.
 
-`Layout.js` > `RecentPosts.js` > `Posts.js` > `Post.js`
-
-### React Lifecycle Methods
-
-React gives us the ability to declare special methods on the component class to run some code when a component mounts and unmounts. Our app uses one such method.
-
-It takes advantage of `componentDidUpdate`, which is invoked immediately after a component has been altered.
-
-It allows `FullPost.js` to pickup on the fact that our `selectedPost` prop from `Layout.js` has changed and therefore it should make a call to [JSONPlaceholder](https://jsonplaceholder.typicode.com/), retrieve the selected post and set it to `postInfo`, a piece of state within the component.
-
-### Axios Instance
-
-`axios` is a promise-based HTTP client for the browser. It will handle all of our requests to and responses from the server, in this case [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
-
-`axios` provides the ability to tuck a little of it's boilerplate away and set up some configuration defaults in an instance. In our case saving us from redundently using the full URL of our server throughout our code.
-
-The following piece of code is included in a file in our root directory called `axios.js`.
-
-```javascript
-import axios from "axios";
-
-const instance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com"
-});
-export default instance;
+```
+$ git checkout master
+$ git merge [enter branch name here]
 ```
 
-Which then allows the developer to import and use within any of their `axios` method invocations.
+![merge](/images/git_merge.png)
 
-##### Example
+#### Rebase
 
-`FullPost.js`
+Rebasing, on the other hand will take any local changes you plan on applying to master and add it to the pre-existing linear history of the repo.
 
-```javascript
-axios
-  .get("/posts/" + this.props.selectedPost)
-  .then(res => {
-    this.setState({
-      postInfo: res.data
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
+```
+$ git checkout [enter branch name here]
+$ git rebase master
 ```
 
-### Axios Interceptors
+![rebase](/images/git_rebase.png)
 
-`axios` allows a developer to intercept requests or responses before they are handled by then or catch. This can be extremely useful with a process like token validation. Where an interceptor can validate a token prior to a client making a request thus saving the server from taking on an unnecessary task.
+then you would apply a fast-forward merge to make your repo concurrent.
 
-`axios.js`
-
-```javascript
-instance.interceptors.request.use(config => {
-  config.headers.authorization = "bearer_token"; // or whatever the header should be;
-  return config;
-});
-
-instance.interceptors.response.use(
-  response => {
-    // handle response
-    return response;
-  },
-  err => {
-    // handle error
-  }
-);
 ```
+$ git checkout master
+$ git merge [enter branch name here]
+```
+
+![ff merge](/images/git_ffmerge.png)
+
+##### Caution
+
+You should never rebase commits that exist outside your repo where people may have based work on them.
+
+When you rebase code existing commits are abandoned, therefore if people are working on on those old commits locally, major issues occur when they merge with the master as well when you go to pull back locally updates.
+
+### React Router
+
+[React Router Docs](https://reacttraining.com/react-router/web/guides/quick-start)
+
+React Router is a routing library built on top of React js which is used to create declarative routing in React apps.
+
+#### BrowserRouter
+
+This is a router that uses the HTML5 history API to keep your UI in sync with the URL. This is the component that needs to wrap everything that you want routing to be applied to in your app. Generally this is included in your App.js file in the root directory.
+
+Commonly you will see this aliased as `Router`
+
+```
+import { BrowserRouter as Router } from 'react-router-dom'
+
+<Router>
+  <App/>
+</Router>
+```
+
+#### Route
+
+The Route component is probably the most commonly used one in React Router. It's basic responsibility is to render some UI when a `location` (within history.location or this.props.location) matches the route's path.
+
+```
+<Router>
+  <div>
+    <Route exact path="/" component={Home}/>
+    <Route path="/news" component={NewsFeed}/>
+  </div>
+</Router>
+```
+
+Here we can discuss the inclusion of a few of the inline functions:
+
+- path: Passed any valid URL path or array of paths that can be understood.
+- component: Self explanatory, we pass in the component that should be rendered when that route is invoked.
+- exact: This is a boolean that will only match if the path matches the location.pathname exactly.
+
+#### Link
+
+Provides declarative, accessible navigation around your app. We do not use `a` tags when linking within our app because our routing will not coincide. We must use <Link> tags.
+
+```
+import { Link } from 'react-router-dom'
+
+<Link to="/about">About</Link>
+<Link to={`/profiles/${userId}`}>User Profile</Link>
+<Link to="/product/:productId">Product of the Day</Link>
+```
+
+We must include the `to` function, this duplicates what a `href` attribute would do for an `a` tag. So we can pass our path either statically or dynamically with interpolation tags `{}`. We can also use colons to pass parameters to other components as with `:productId`.
+
+#### NavLink
+
+This is a special version of the <Link> tag that will add styling attributes to the rendered element when it matches the current URL.
+
+By default, it will pass the `.active` class styling, by default, to an item in your navbar. So if you want a nav item to be highlighted when a user is on the component associated with it then use <NavLink> instead.
+
+```
+<NavLink to="/Home" >
+  Home
+</NavLink>
+<NavLink to="/faq" activeClassName="selected">
+  FAQs
+</NavLink>
+```
+
+If you want apply a different class name for an active link then you pass the inline function of `activeClassName` which will let you customize the class.
 
 ## General Information
 
