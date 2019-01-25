@@ -19,7 +19,7 @@ $ git checkout master
 $ git merge [enter branch name here]
 ```
 
-![merge](/images/git_merge.png)
+![merge](git_merge.png)
 
 #### Rebase
 
@@ -30,7 +30,7 @@ $ git checkout [enter branch name here]
 $ git rebase master
 ```
 
-![rebase](/images/git_rebase.png)
+![rebase](git_rebase.png)
 
 then you would apply a fast-forward merge to make your repo concurrent.
 
@@ -39,7 +39,7 @@ $ git checkout master
 $ git merge [enter branch name here]
 ```
 
-![ff merge](/images/git_ffmerge.png)
+![ff merge](git_ffmerge.png)
 
 ##### Caution
 
