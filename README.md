@@ -2,11 +2,7 @@
 
 ### Git Rebase
 
-##### Resource
-
 [Git- Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
-
-##### Definition
 
 In Git, there are 2 ways to integrate changes from one branch into another, `merge` and `rebase`.
 
